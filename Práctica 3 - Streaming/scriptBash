@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#URL ESPECIAL
+echo "URL del vídeo:";
+read URL_IN
+URL_ESPECIAL=`youtube-dl $URL_IN -g`
+echo "URL ESPECIAL = "
+echo $URL_ESPECIAL
+
+#DIRECCION IP
+URL_DIG=`dig $URL_IN`
+LINEA=`echo ${URL_DIG##*SERVER: }`
+IP=`echo ${LINEA%#*}`
+echo "DIRECCION IP = "$IP
+
+#ORGANIZACION DE LA DIR IP
+DATOS=`whois $IP`
+ORG=` echo ${DATOS#*OrgName:}`
+L1=${#ORG}
+ORGREST=` echo ${ORG#*OrgId:}`
+L2=${#ORGREST}
+L3=$(( $L1 - $L2 - 7))
+ORGNAME=` echo ${ORG:0:$L3}`
+echo "ORG. NAME = "$ORGNAME
+
+
+
+ 
